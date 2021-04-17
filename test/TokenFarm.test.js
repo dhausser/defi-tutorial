@@ -79,6 +79,9 @@ contract('TokenFarm', ([owner, investor]) => {
 
       result = await tokenFarm.isStaking(investor)
       assert.equal(result.toString(), 'true', 'investor staking status correct after staking')
+
+      // Issue tokens
+      await tokenFarm.issueTokens({ from: owner })
     })
   })
 })

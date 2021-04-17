@@ -41,7 +41,7 @@ contract TokenFarm {
   // 2. Unstaking Tokens (Withdraw)
 
   // 3. Issuing Token
-  function issueToken() public {
+  function issueTokens() public {
     // Only the owner can call this function
     require(msg.sender == owner, "caller must be the owner");
 
