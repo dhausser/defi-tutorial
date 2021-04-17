@@ -56,7 +56,7 @@ contract('TokenFarm', ([owner, investor]) => {
   })
 
   describe('Farming token', async () => {
-    it('reawards investors for staking mDai tokens', async () => {
+    it('rewards investors for staking mDai tokens', async () => {
       let result
 
       // Check investor balance before staking
