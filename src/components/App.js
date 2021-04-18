@@ -125,6 +125,8 @@ function App() {
                 stakingBalance={state.stakingBalance}
                 stakeTokens={stakeTokens}
                 unstakeTokens={unstakeTokens}
+                state={state}
+                setState={setState}
               />
             </div>
           </main>

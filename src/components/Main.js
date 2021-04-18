@@ -1,6 +1,12 @@
 import React from 'react'
 
-function Main() {
+function Main({
+  daiTokenBalance,
+  dappTokenBalance,
+  stakingBalance,
+  stakeTokens,
+  unstakeTokens
+}) {
   return <h1>Hello, World!</h1>
 }
 
