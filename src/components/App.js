@@ -1,9 +1,10 @@
 import React from 'react'
-import Navbar from './Navbar'
-import Web3 from 'web3'
 import DaiToken from '../abis/DaiToken.json'
 import DappToken from '../abis/DappToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
+import Navbar from './Navbar'
+import Main from './Main'
+import Web3 from 'web3'
 import './App.css'
 
 async function loadBlockChainData(setState) {
@@ -72,15 +73,31 @@ async function loadWeb3() {
   }
 }
 
+function stakeTokens(state, setState, amount) {
+  setState({ ...state, loading: true })
+  state.daiToken.methods.approve(state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+    state.tokenFarm.methods.stakeTokens(amount).send({ from: state.account }).on('transactionHash', (hash) => {
+      setState({ ...state, loading: false })
+    })
+  })
+}
+
+function unstakeTokens(state, setState, amount) {
+  setState({ ...state, loading: true })
+  state.tokenFarm.methods.unstakeTokens().send({ from: state.account }).on('transactionHash', (hash) => {
+    setState({ ...state, loading: false })
+  })
+}
+
 function App() {
   const [state, setState] = React.useState({
     account: '0x0',
-    daiToken: null,
-    daiTokenBalance: 0,
-    dappToken: null,
-    dappTokenBalance: 0,
-    tokenFarm: null,
-    stakingBalance: 0,
+    daiToken: {},
+    dappToken: {},
+    tokenFarm: {},
+    daiTokenBalance: '0',
+    dappTokenBalance: '0',
+    stakingBalance: '0',
     loading: true
   })
 
@@ -88,6 +105,8 @@ function App() {
     loadWeb3()
     loadBlockChainData(setState)
   }, [])
+
+  if (state.loading) return <p id="loader" className="text-center">Loading...</p>
 
   return (
     <div>
@@ -100,7 +119,13 @@ function App() {
             style={{ maxWidth: '600px' }}
           >
             <div className="content mr-auto ml-auto">
-              <h1>Hello, World!</h1>
+              <Main
+                daiTokenBalance={state.daiTokenBalance}
+                dappTokenBalance={state.dappTokenBalance}
+                stakingBalance={state.stakingBalance}
+                stakeTokens={stakeTokens}
+                unstakeTokens={unstakeTokens}
+              />
             </div>
           </main>
         </div>
