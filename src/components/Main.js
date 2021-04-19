@@ -60,6 +60,16 @@ function Main({ daiTokenBalance, dappTokenBalance, stakingBalance, stakeTokens, 
               STAKE!
             </button>
           </form>
+          <button
+            type="submit"
+            className="btn btn-link btn-block btn-sm"
+            onClick={event => {
+              event.preventDefault()
+              unstakeTokens()
+            }}
+          >
+            UN-STAKE...
+          </button>
         </div>
       </div>
     </div>

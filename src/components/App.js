@@ -98,7 +98,7 @@ function App() {
       })
   }
 
-  function unstakeTokens(amount) {
+  function unstakeTokens() {
     setState({ ...state, loading: true })
     state.tokenFarm.methods
       .unstakeTokens()
@@ -133,8 +133,6 @@ function App() {
                 stakingBalance={state.stakingBalance}
                 stakeTokens={stakeTokens}
                 unstakeTokens={unstakeTokens}
-                state={state}
-                setState={setState}
               />
             </div>
           </main>
